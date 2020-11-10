@@ -2,6 +2,7 @@
     <div class="irain-header">
         <div class="irain-header-le">
             <sider-trigger :collapsed="collapsed" @on-change="handleCollapsedChange"></sider-trigger>
+            <custom-bread-crumb></custom-bread-crumb>
         </div>
         <div class="irain-header-ri">2</div>
     </div>
@@ -10,10 +11,12 @@
 import './header-bar.less';
 
 import SiderTrigger from './sider-trigger'
+import CustomBreadCrumb from './custom-bread-crumb'
 export default {
     name: 'HeaderBar',
     components: {
-        SiderTrigger
+        SiderTrigger,
+        CustomBreadCrumb
     },
     props: {
         collapsed: Boolean
