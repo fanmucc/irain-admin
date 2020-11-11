@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { login } from './login'
+import { login, getUserInfos } from './login'
 
 
 Mock.setup({
@@ -7,6 +7,7 @@ Mock.setup({
 })
 
 Mock.mock(/\/login/, login)
+Mock.mock(/\/get_info/, getUserInfos)
 
 
 export default Mock

@@ -6,7 +6,7 @@ import store from './store'
 
 import 'ant-design-vue/dist/antd.css'
 
-require('./mock')
+require('./mock/index')
 
 
 Vue.config.productionTip = false

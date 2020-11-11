@@ -9,7 +9,7 @@ export default {
      */
     cookieExpires: 1,
     baseUrl: {
-        dev: '',
-        pro: ''
+        dev: 'http://localhost:8080',
+        pro: 'http://localhost:8080'
     }
 }
