@@ -6,20 +6,7 @@
                 <!-- <img v-show="collapsed"  src="" alt="logo">
                 <img v-show="!collapsed" src="" alt="logo"> -->
             </div>
-            <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-                <a-menu-item key="1">
-                <a-icon type="user" />
-                <span>nav 1</span>
-                </a-menu-item>
-                <a-menu-item key="2">
-                <a-icon type="video-camera" />
-                <span>nav 2</span>
-                </a-menu-item>
-                <a-menu-item key="3">
-                <a-icon type="upload" />
-                <span>nav 3</span>
-                </a-menu-item>
-            </a-menu>
+            <side-menu theme="dark" mode="inline" :routerList="routerList"></side-menu>
         </a-layout-sider>
         <a-layout>
             <a-layout-header style="background: #fff; padding: 0">
@@ -40,18 +27,19 @@ import './main.less'
 // 引入antd
 import {
     Layout,
-    Icon,
-    Menu
 } from 'ant-design-vue'
 const {
     Header,
     Sider,
     Content
 } = Layout;
-const MenuItem = Menu.Item
-const SubMenu = Menu.SubMenu
+
+// 引入公共文件
+import store from '../store'
+
 // 引入自定义组件
-import HeaderBar from './components/header-bar'
+import HeaderBar from './components/header-bar';
+import SideMenu from './components/side-menu'
 export default {
     name: 'Main',
     components: {
@@ -59,11 +47,8 @@ export default {
         'a-layout-sider': Sider,
         'a-layout-header': Header,
         'a-layout-content': Content,
-        'a-header': Header,
-        'a-icon': Icon,
-        'a-menu': Menu,
-        'a-menu-item': MenuItem,
-        HeaderBar
+        HeaderBar,
+        SideMenu
     },
     data () {
         return {
@@ -71,7 +56,9 @@ export default {
         }
     },
     computed: {
-
+        routerList () {
+            return store.state.user.routerList
+        }
     },
     created() {
 

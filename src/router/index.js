@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store'
 import routers from './routers'
 
-import { getToken, setToken, setTitle } from '../libs/utils'
+import { getToken, setToken } from '../libs/utils'
 
 Vue.use(VueRouter)
 
