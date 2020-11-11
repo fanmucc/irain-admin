@@ -7,7 +7,7 @@ const state = {
     avatar: '',
     hasGetInfo: false,
     token: getToken(),
-    routeList: [],
+    routerList: [],
 }
 
 const mutations = {
@@ -28,7 +28,7 @@ const mutations = {
         setToken(token)
     },
     setRouteList (state, routerList) {
-        state.routeList = routerList
+        state.routerList = routerList
     }
 }
 
