@@ -32,3 +32,31 @@ export const getToken = () => {
      })
      return paramObj
  }
+
+/**
+ * @param {Array} 路由列表数组
+ * @description 找出其子列表不为空的父级path
+ */
+
+export const getRootSubmenuKeys = routerArray => {
+    const rootSubmenuKeys = [];
+    routerArray.forEach((item) => {
+        if (item.children !== undefined && item.children.length !== 0) {
+            rootSubmenuKeys.push(`${item.path}`)
+        }
+    })
+    return rootSubmenuKeys
+}
+
+/**
+ * @param {String, String, String} 'get | set', key, value  
+ * @description sessionStorage设置或缓存数据
+ */
+
+export const setSessionStorage = (state, key, value) => {
+    if ( state === 'set') {
+        window.sessionStorage.setItem(key, value);
+    } else {
+        return window.sessionStorage.getItem(key) === null ? false : window.sessionStorage.getItem(key)
+    }
+}

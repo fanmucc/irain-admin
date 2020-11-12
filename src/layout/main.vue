@@ -6,7 +6,7 @@
                 <!-- <img v-show="collapsed"  src="" alt="logo">
                 <img v-show="!collapsed" src="" alt="logo"> -->
             </div>
-            <side-menu theme="dark" mode="inline" :routerList="routerList"></side-menu>
+            <side-menu theme="dark" mode="inline" :routerList="routerList" :rootSubmenuKeys="rootSubmenuKeys" :openKeys="openKeys" @on-side-openKeys="handleSideOpenKeys" @on-side-menu="handleSideMenuPush" ></side-menu>
         </a-layout-sider>
         <a-layout>
             <a-layout-header style="background: #fff; padding: 0">
@@ -15,7 +15,7 @@
             <a-layout-content
                 :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
             >
-                Content
+                <router-view></router-view>
             </a-layout-content>
         </a-layout>
   </a-layout>
@@ -40,6 +40,9 @@ import store from '../store'
 // 引入自定义组件
 import HeaderBar from './components/header-bar';
 import SideMenu from './components/side-menu'
+
+// 引入方法
+import { getRootSubmenuKeys, setSessionStorage } from '../libs/utils'
 export default {
     name: 'Main',
     components: {
@@ -52,13 +55,17 @@ export default {
     },
     data () {
         return {
-            collapsed: false
+            collapsed: false,
+            openKeys: setSessionStorage('get', 'openKeys') ? JSON.parse(setSessionStorage('get', 'openKeys')) : []
         }
     },
     computed: {
         routerList () {
             return store.state.user.routerList
-        }
+        },
+        rootSubmenuKeys () {
+            return getRootSubmenuKeys(this.routerList)
+        },
     },
     created() {
 
@@ -70,6 +77,17 @@ export default {
         // 侧边栏伸缩
         collChange(state) {
             this.collapsed = state
+        },
+
+        // 父级自动自动伸缩
+        handleSideOpenKeys (state) {
+            this.openKeys = state;
+            setSessionStorage('set', 'openKeys', JSON.stringify(state))
+        },
+
+        // 页面跳转
+        handleSideMenuPush (key) {
+            this.$router.push({name: key})
         }
     }
 }
