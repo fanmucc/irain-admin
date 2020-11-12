@@ -4,7 +4,8 @@ import router from './router'
 import store from './store'
 
 
-import 'ant-design-vue/dist/antd.css'
+// import 'ant-design-vue/dist/antd.css'
+import 'view-design/dist/styles/iview.css'
 
 require('./mock/index')
 

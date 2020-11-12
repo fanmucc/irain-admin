@@ -4,8 +4,12 @@ module.exports = {
   ],
   plugins: [
     [
-        "import",
-        { libraryName: "ant-design-vue", libraryDirectory: "es", style: ['less', 'css'] }
+        // "import",
+        // { libraryName: "ant-design-vue", libraryDirectory: "es", style: ['less', 'css'] },
+        "import", {
+          "libraryName": "view-design",
+          "libraryDirectory": "src/components"
+        }
     ]
   ]
 }
