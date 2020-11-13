@@ -1,15 +1,37 @@
-<template functional>
-    <a-sub-menu :key="data.attrs.menuInfo.path">
-        <span slot="title">
-            <a-icon :type="data.attrs.menuInfo.meta.icon" v-if="data.attrs.menuInfo.meta.icon"></a-icon>
-            <span>{{data.attrs.menuInfo.meta.title}}</span>
-        </span>
-        <template v-for="item in data.attrs.menuInfo.children">
-            <a-menu-item v-if="!item.children" :key="item.name">
-                <a-icon :type="item.meta.icon" v-if="item.meta.icon"></a-icon>
-                <span>{{item.meta.title}}</span>
-            </a-menu-item>
-            <side-menu-item v-else :menuInfo="item" :key="item.name"></side-menu-item>
+<template>
+    <Submenu :name="`${parentItem.name}`">
+        <template slot="title">
+            <Icon :type="parentItem.meta.icon || ''"></Icon>
+            <span>{{parentItem.meta.title}}</span>
         </template>
-    </a-sub-menu>
+        <template v-for="item in parentItem.children">
+             <template v-if="item.children !== undefined && item.children.length !== 0">
+                 <SideMenuItem :parent-item="item" :key="`menu-${item.name}`"></SideMenuItem>
+            </template>
+            <template v-else>
+                <menu-item :name="item.name" :key="`menu-${item.name}`">
+                     <Icon :type="item.meta.icon"/>
+                     <span>{{item.meta.title}}</span>
+                </menu-item>
+            </template>
+        </template>
+       
+    </Submenu>
 </template>
+<script>
+import { Submenu, Icon, MenuItem } from 'view-design'
+export default {
+    name: 'SideMenuItem',
+    props: {
+        parentItem: {
+            type: Object,
+            default: () => {}
+        },
+    },
+    components: {
+        Submenu,
+        Icon,
+        MenuItem
+    }
+}
+</script>

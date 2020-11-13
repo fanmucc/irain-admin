@@ -12,7 +12,7 @@ const USER = {
                 name: 'WebSetting',
                 meta: {
                     title: '网站设置',
-                    icon: 'global'
+                    icon: 'ios-analytics'
                 }
             },
             {
@@ -20,7 +20,7 @@ const USER = {
                 name: 'Labels',
                 meta: {
                     title: '标签设置',
-                    icon: 'tags'
+                    icon: 'ios-analytics'
                 }
             }, 
             {
@@ -28,7 +28,7 @@ const USER = {
                 name: 'ArticleList',
                 meta: {
                     title: '文章列表',
-                    icon: 'file-markdown'
+                    icon: 'ios-analytics'
                 },
                 children: [
                     {
@@ -36,7 +36,7 @@ const USER = {
                         name: 'AddAtricle',
                         meta: {
                             title: '添加列表',
-                            icon: 'file-markdown'
+                            icon: 'ios-analytics'
                         }
                     },
                     {
@@ -44,7 +44,7 @@ const USER = {
                         name: 'RemoteAtricle',
                         meta: {
                             title: '删除列表',
-                            icon: 'file-markdown'
+                            icon: 'ios-analytics'
                         }
                     }
                 ]
@@ -54,7 +54,7 @@ const USER = {
                 name: 'Abc',
                 meta: {
                     title: 'Abc',
-                    icon: 'file-markdown'
+                    icon: 'ios-analytics'
                 },
                 children: [
                     {
@@ -62,7 +62,7 @@ const USER = {
                         name: 'Addabc',
                         meta: {
                             title: '添加abc',
-                            icon: 'file-markdown'
+                            icon: 'ios-analytics'
                         }
                     },
                     {
@@ -70,7 +70,7 @@ const USER = {
                         name: 'Remoteabc',
                         meta: {
                             title: '删除abc',
-                            icon: 'file-markdown'
+                            icon: 'ios-analytics'
                         }
                     }
                 ]

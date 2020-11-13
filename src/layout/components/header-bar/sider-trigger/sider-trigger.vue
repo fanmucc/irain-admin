@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-icon
+        <Icon
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="handleChange"
@@ -8,11 +8,11 @@
     </div>
 </template>
 <script>
-import { Icon } from 'ant-design-vue';
+import { Icon } from 'view-design';
 export default {
     name: "SiderTrigger",
     components: {
-        'a-icon': Icon,
+        Icon,
     },
     props: {
         collapsed: Boolean

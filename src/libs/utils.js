@@ -60,3 +60,5 @@ export const setSessionStorage = (state, key, value) => {
         return window.sessionStorage.getItem(key) === null ? false : window.sessionStorage.getItem(key)
     }
 }
+
+
