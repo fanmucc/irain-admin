@@ -6,6 +6,7 @@ import store from './store'
 
 // import 'ant-design-vue/dist/antd.css'
 import 'view-design/dist/styles/iview.css'
+import './index.less'
 
 require('./mock/index')
 

@@ -60,12 +60,9 @@ export default {
             placement: 'right-end'
         }
     },
-    mounted () {
-        console.log(this.parentItem)
-    },
     methods: {
-        handleClick () {
-
+        handleClick (name) {
+            this.$emit('on-click', name)
         },
         handleMousemove (event, children) {
             const { pageY } = event
