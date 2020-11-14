@@ -1,8 +1,8 @@
 <template>
     <div class="irain-header">
         <div class="irain-header-le">
-            <sider-trigger :collapsed="collapsed" @on-change="handleCollapsedChange"></sider-trigger>
-            <custom-bread-crumb></custom-bread-crumb>
+            <sider-trigger :collapsed="collapsed" icon="md-menu" @on-change="handleCollapsedChange"></sider-trigger>
+            <custom-bread-crumb :list="breadCrumbList"></custom-bread-crumb>
         </div>
         <div class="irain-header-ri">2</div>
     </div>
@@ -21,7 +21,13 @@ export default {
     props: {
         collapsed: Boolean
     },
+    computed : {
+        breadCrumbList () {
+            return this.$store.state.app.breadCrumbList
+        }
+    },
     methods: {
+        // 侧边栏切换事件
         handleCollapsedChange(state) {
             this.$emit('on-coll-change', state)
         }

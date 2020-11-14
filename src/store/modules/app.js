@@ -1,6 +1,10 @@
 import config from '../../config'
 const { homeName } = config
 
+import { 
+    getBreadCrumbList,
+    getHomeRoute
+} from '../../libs/utils'
 
 const state = {
     breadCrumbList: [],  // 面包屑
@@ -10,14 +14,11 @@ const state = {
 
 const mutations = {
     setBreadCrumb (state, route) {
-
+        state.breadCrumbList = getBreadCrumbList(route, state.homeRoute)
     },
-    setHomeRoute (state, route) {
-
+    setHomeRoute (state, routes) {
+        state.homeRoute = getHomeRoute(routes, homeName)
     },
-    addTag(state, {route, type = 'unshift'}) {
-        
-    }
 }
 
 const actions = {

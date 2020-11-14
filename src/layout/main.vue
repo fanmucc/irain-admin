@@ -10,7 +10,7 @@
         </Sider>
         <Layout>
             <Header class="header-con">
-                <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu" size="24"></Icon>
+                <HeaderBar :collapsed="collapsed" @on-coll-change="handleChangeCollapsed"></HeaderBar>
             </Header>
             <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
                 <router-view></router-view>
@@ -28,7 +28,7 @@ import maxLogo from '@/assets/images/logo.jpg'
 import store from '../store'
 
 // 引入自定义组件
-// import HeaderBar from './components/header-bar';
+import HeaderBar from './components/header-bar';
 import SideMenu from './components/side-menu'
 
 // 引入方法
@@ -38,22 +38,22 @@ import {
 
 import {
     Layout,
-    Menu,
-    MenuItem,
     Sider,
-    Icon,
     Header
 } from 'view-design'
+
+// 引入store
+import { mapMutations, mapActions } from 'vuex'
+// 引入路由表
+import routers from '../router/routers'
 export default {
     name: 'Main',
     components: {
         SideMenu,
         Layout,
-        Menu,
-        MenuItem,
         Sider,
-        Icon,
-        Header
+        Header,
+        HeaderBar
     },
     data() {
         return {
@@ -79,15 +79,31 @@ export default {
             ]
         }
     },
+    mounted () {
+         /**
+         * @description 初始化设置面包屑导航和标签导航
+         */
+        this.setHomeRoute(routers)
+        this.setBreadCrumb(this.$route)
+    },
     methods: {
+        ...mapMutations([
+            'setHomeRoute',
+            'setBreadCrumb'
+        ]),
         // // 页面跳转
         handleSideMenuPush(key) {
             this.$router.push({
                 name: key
             })
         },
-        collapsedSider() {
-            this.collapsed = !this.collapsed
+        handleChangeCollapsed(state) {
+            this.collapsed = state
+        }
+    },
+    watch: {
+        '$route' (newRoute) {
+            this.setBreadCrumb(newRoute)
         }
     }
 }

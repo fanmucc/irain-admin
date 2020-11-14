@@ -7,7 +7,7 @@ const routers = [
         name: 'Login',
         meta: {
             title: '登录',
-            icon: ''
+            icon: 'login'
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
     },
@@ -16,14 +16,17 @@ const routers = [
       name: 'Main',
       redirect: '/home',
       meta: {
-        name: 'Main',
-        title: 'Main'
+        hideInMenu: true
       },
       component: Main,
       children: [
           {
               path: 'home',
               name: 'Home',
+              meta: {
+                title: '首页',
+                icon: 'home'
+              },
               component: Home
           }
       ]
@@ -35,6 +38,9 @@ const routers = [
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      meta: {
+        hideInMenu: true
+      },
       component: Main,
       children: [
         {
@@ -54,6 +60,9 @@ const routers = [
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      meta: {
+        hideInMenu: true
+      },
       component: Main,
       children: [
         {
@@ -73,6 +82,9 @@ const routers = [
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      meta: {
+        title: '列表页',
+      },
       component: Main,
       children: [
         {
@@ -101,6 +113,9 @@ const routers = [
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      meta: {
+        hideInMenu: true
+      },
       component: Main,
       children: [
         {
