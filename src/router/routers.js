@@ -25,7 +25,7 @@ const routers = [
               name: 'Home',
               meta: {
                 title: '首页',
-                icon: 'home'
+                icon: 'ios-home'
               },
               component: Home
           }
@@ -48,7 +48,7 @@ const routers = [
           name: 'WebSetting',
           meta: {
             title: '网站设置',
-            icon: 'global'
+            icon: 'ios-at'
           },
           component: () => import(/* webpackChunkName: "Ceshi1" */ '../views/Ceshi1.vue')
         }
@@ -70,7 +70,7 @@ const routers = [
           name: 'Labels',
           meta: {
             title: '标签设置',
-            icon: 'tags'
+            icon: 'ios-pricetags'
           },
           component: () => import(/* webpackChunkName: "Ceshi2" */ '../views/Ceshi2.vue')
         }

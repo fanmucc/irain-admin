@@ -12,7 +12,7 @@ const USER = {
                 name: 'WebSetting',
                 meta: {
                     title: '网站设置',
-                    icon: 'ios-analytics'
+                    icon: 'ios-at'
                 }
             },
             {
@@ -20,7 +20,7 @@ const USER = {
                 name: 'Labels',
                 meta: {
                     title: '标签设置',
-                    icon: 'ios-analytics'
+                    icon: 'ios-pricetags-outline'
                 }
             }, 
             {
