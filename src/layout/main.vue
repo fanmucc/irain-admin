@@ -12,8 +12,18 @@
             <Header class="header-con">
                 <HeaderBar :collapsed="collapsed" @on-coll-change="handleChangeCollapsed"></HeaderBar>
             </Header>
-            <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
-                <router-view></router-view>
+            <Content class="main-content-con">
+                 <Layout class="main-layout-con">
+                    <div class="tag-nav-wrapper">
+                        <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
+                    </div>
+                    <Content class="content-wrapper">
+                        <!-- <keep-alive :include="cacheList"> -->
+                            <router-view/>
+                        <!-- </keep-alive> -->
+                        <!-- <ABackTop :height="100" :bottom="80" :right="50" container=".content-wrapper"></ABackTop> -->
+                    </Content>
+                </Layout>
             </Content>
         </Layout>
     </Layout>
@@ -30,10 +40,11 @@ import store from '../store'
 // 引入自定义组件
 import HeaderBar from './components/header-bar';
 import SideMenu from './components/side-menu'
+import TagsNav from './components/tags-nav'
 
 // 引入方法
 import {
-    setSessionStorage
+    getNewTagList
 } from '../libs/utils'
 
 import {
@@ -43,7 +54,7 @@ import {
 } from 'view-design'
 
 // 引入store
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 // 引入路由表
 import routers from '../router/routers'
 export default {
@@ -53,7 +64,8 @@ export default {
         Layout,
         Sider,
         Header,
-        HeaderBar
+        HeaderBar,
+        TagsNav
     },
     data() {
         return {
@@ -65,6 +77,9 @@ export default {
     computed: {
         routerList() {
             return store.state.user.routerList
+        },
+        tagNavList () {
+            return this.$store.state.app.tagNavList
         },
         rotateIcon() {
             return [
@@ -80,16 +95,30 @@ export default {
         }
     },
     mounted () {
-         /**
+        /**
          * @description 初始化设置面包屑导航和标签导航
          */
+        this.setTagNavList()
         this.setHomeRoute(routers)
-        this.setBreadCrumb(this.$route)
+        const { name, params, query, meta } = this.$route
+        this.addTag({
+            route: { name, params, query, meta }
+        })
+        this.setBreadCrumb(this.$route) 
+        // 设置初始语言
+        // 如果当前打开页面不在标签栏中，跳到homeName页
+        if (!this.tagNavList.find(item => item.name === this.$route.name)) {
+            this.$router.push({
+                name: this.$config.homeName
+            })
+        }
     },
     methods: {
         ...mapMutations([
             'setHomeRoute',
-            'setBreadCrumb'
+            'setBreadCrumb',
+            'addTag',
+            'setTagNavList'
         ]),
         // // 页面跳转
         handleSideMenuPush(key) {
@@ -99,11 +128,44 @@ export default {
         },
         handleChangeCollapsed(state) {
             this.collapsed = state
-        }
+        },
+        // 标签栏事件
+        handleCloseTag () {
+
+        },
+        // tagNav点击事件
+        handleClick (item) {
+            this.turnToPage(item)
+        },
+        // 统一路由跳转
+        turnToPage (route) {
+            let { name, params, query } = {}
+            if (typeof route === 'string') name = route
+            else {
+                name = route.name
+                params = route.params
+                query = route.query
+            }
+            if (name.indexOf('isTurnByHref_') > -1) {
+                window.open(name.split('_')[1])
+                return
+            }
+            this.$router.push({
+                name,
+                params,
+                query
+            })
+        },
     },
     watch: {
         '$route' (newRoute) {
+            const { name, query, params, meta } = newRoute
+            this.addTag({
+                route: { name, query, params, meta },
+                type: 'push'
+            })
             this.setBreadCrumb(newRoute)
+            this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
         }
     }
 }

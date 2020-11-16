@@ -3,7 +3,11 @@ const { homeName } = config
 
 import { 
     getBreadCrumbList,
-    getHomeRoute
+    getHomeRoute,
+    getRouteTitleHandled,
+    routeHasExist,
+    setTagNavListInLocalstorage,
+    getTagNavListFromLocalstorage
 } from '../../libs/utils'
 
 const state = {
@@ -19,6 +23,37 @@ const mutations = {
     setHomeRoute (state, routes) {
         state.homeRoute = getHomeRoute(routes, homeName)
     },
+    setTagNavList (state, list) {
+        let tagList = []
+        console.log(list)
+        if (list) {
+          tagList = [...list]
+        } else tagList = getTagNavListFromLocalstorage() || []
+        if (tagList[0] && tagList[0].name !== homeName) tagList.shift()
+        let homeTagIndex = tagList.findIndex(item => item.name === homeName)
+        if (homeTagIndex > 0) {
+          let homeTag = tagList.splice(homeTagIndex, 1)[0]
+          tagList.unshift(homeTag)
+        }
+        state.tagNavList = tagList
+        setTagNavListInLocalstorage([...tagList])
+      },
+      addTag (state, { route, type = 'unshift' }) {
+          console.log(state.tagNavList, route)
+        let router = getRouteTitleHandled(route)
+        if (!routeHasExist(state.tagNavList, router)) {
+            console.log(1)
+          if (type === 'push') { 
+              state.tagNavList.push(router)
+              console.log(state.tagNavList)
+           } else {
+                if (router.name === homeName) state.tagNavList.unshift(router)
+                else state.tagNavList.splice(1, 0, router)
+          }
+          console.log(state.tagNavList)
+          setTagNavListInLocalstorage([...state.tagNavList])
+        }
+      },
 }
 
 const actions = {
