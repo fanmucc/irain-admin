@@ -4,7 +4,6 @@ import store from '../store'
 import routers from './routers'
 
 import { LoadingBar } from 'view-design'
-Vue.use(LoadingBar)
 
 import { getToken, setToken } from '../libs/utils'
 
@@ -12,6 +11,7 @@ Vue.use(VueRouter)
 
 
 const router = new VueRouter({
+  mode: 'history',
   routes: routers
 })
 
@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
   } else {
     // 已经登陆 跳转的页面也不是首页 
     // 进行路由表判断，如果为空则需要重新加载路由
-    if (!store.state.user.routeList) {
+    if (store.state.user.routerList.length === 0) {
       store.dispatch('getUserSubmit').then(user => {
         // 获取到直接进行跳转
         LoadingBar.start()

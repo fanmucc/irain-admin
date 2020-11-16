@@ -43,6 +43,7 @@ import SideMenuItem from './side-menu-item.vue'
 import CollapsedMenu from './collapsed-menu.vue'
 
 import { setSessionStorage } from '../../../libs/utils'
+
 export default {
     name: 'SideMenu',
     components: {
@@ -71,7 +72,7 @@ export default {
     },
     data() {
         return {
-            openedNames: setSessionStorage('get', 'Submenu') ? JSON.parse(setSessionStorage('get', 'Submenu')) : []
+            openedNames: setSessionStorage('get', 'Submenu') ? JSON.parse(setSessionStorage('get', 'Submenu')) : [],
         }
     },
     computed: {
