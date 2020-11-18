@@ -26,9 +26,9 @@ export default {
             const beforePassword = password
             this.handleLogin({userName, beforePassword}).then((res) => {
                 Message.success('登陆成功')
-                this.$router.push({
-                    name: 'Home'
-                })
+                // this.$router.push({
+                //     name: 'Home'
+                // })
             })
         }
     }

@@ -220,9 +220,9 @@ export const getNextRoute = (list, route) => {
  * @description 返回具有层级的路由标签
  */
 
- export const routeList = (nodes, list, pid = 0) => {
+ export const routeList = (nodes) => {
+     let data = []
      nodes.forEach(item => {
-         if(item.pid === pid) {
              const nodeObj = {
                  path: item.route,
                  meta: {
@@ -230,46 +230,42 @@ export const getNextRoute = (list, route) => {
                     title: item.node_name
                  },
                  name: firstUpperCase(item.route),
-                 pid: 0,
+                 pid: item.pid,
                  pid_id: item.model.id,
                  children: []
              }
-             list.push(nodeObj)
-         }
+             data.push(nodeObj)
      })
-     getChildrenList(list, nodes)
+     return data
  }
-
+ 
  /**
   * 
-  * @param {*} string 
+  * @param {array} 
+  * @returns 树状结构数据
   */
 
-  const getChildrenList = (list, nodes) => {
-    list.forEach(item => {
-        nodes.forEach(nodeItem => {
-            if (nodeItem.pid === item.pid_id) {
-                const nodeObj = {
-                    path: item.route,
-                    meta: {
-                        icon: '',
-                        title: item.node_name
-                    },
-                    name: firstUpperCase(nodeItem.route),
-                    pid: 0,
-                    pid_id: nodeItem.model.id,
-                    children: []
-                }
-                item.children.push(nodeObj)
-                getChildrenList(list.children, nodes)
-            } else {
-                item.children = null
-            }
-        })
-    })
+  export const transTreeData = (routerArr) => {
+      if (routerArr.length > 0) {
+        const pid = 0
+        const parent = findChild(pid, routerArr)
+        return parent
+      } else {
+          return []
+      }
   }
 
-
+  const findChild = (pid, routerArr) => {
+      var _arr = []
+      for (var i = 0; i < routerArr.length; i++) {
+          if (routerArr[i].pid === pid) {
+              var _obj = routerArr[i];
+              _obj.children = findChild(_obj.pid_id, routerArr)
+              _arr.push(_obj)
+          }
+      }
+      return _arr
+  }
  /**
   * @param {String} 将路由标签转换为首字符大写的字符串
   * @description 返回字符串

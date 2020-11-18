@@ -1,5 +1,5 @@
-import { setToken, getToken } from '../../libs/utils'
-import { login } from '../../api/user'
+import { setToken, getToken, routeList, transTreeData } from '../../libs/utils'
+import { login, logout } from '../../api/user'
 import Vue from 'vue'
 const state = {
     userName: '',
@@ -45,9 +45,11 @@ const actions = {
                 password: beforePassword
             }).then(res => {
                 const { data, code } = res.data
-                const routeList = []
+                const routeListArr = transTreeData(routeList(data.nodes))
                 commit('setUserName', data.info.account)
-                commit('setRouteList', data.nodes)
+                // 处理路由
+                console.log(routeListArr)
+                commit('setRouteList', routeListArr)
                 commit('setToken', data.token)
                 commit('setHasGetInfo', true)
                 commit('setUserId', data.info.model.id)
@@ -57,7 +59,16 @@ const actions = {
             })
         })
     },
-
+    handleLogOut({commit}, token) {
+        return new Promise((reslove, reject) => {
+            logout({
+                token
+            }).then(res => {
+                commit('setToken', '')
+                console.log(res)
+            })
+        })
+    }
     // getUserSubmit({state, commit}) {
     //     return new Promise((resolve, reject) => {
     //         try {

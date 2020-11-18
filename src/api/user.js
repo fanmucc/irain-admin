@@ -24,3 +24,15 @@ export const postUserRegister = ({userName, password}) => {
     method: 'post'
   })
 }
+
+// 登出
+export const logout = (token) => {
+  const data = {
+    Authorization: token
+  }
+  return axios.request({
+    url: '/auth/logout',
+    data,
+    method: 'post'
+  })
+}
