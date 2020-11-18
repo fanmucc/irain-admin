@@ -2,15 +2,24 @@ import Home from '../views/Home.vue'
 import Main from '../layout/index'
 
 const routers = [
-    // {
-    //     path: '/login',
-    //     name: 'Login',
-    //     meta: {
-    //         title: '登录',
-    //         icon: 'login'
-    //     },
-    //     component: () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
-    // },
+    {
+        path: '/login',
+        name: 'Login',
+        meta: {
+            title: '登录',
+            icon: 'login'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/login/login.vue')
+    },
+    {
+      path: '/registered',
+      name: 'Registered',
+      meta: {
+        title: '注册',
+        icon: 'registered'
+      },
+      component: () => import(/* webpackChunkName: "registered" */ '../views/registered/registered.vue')
+    },
     {
       path: '/',
       name: 'Main',

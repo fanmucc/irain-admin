@@ -1,7 +1,7 @@
 <template>
     <Layout style="height: 100vh" class="main">
         <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
-            <side-menu :collapsed="collapsed" :routerList="routerList" @on-handleClick-menu="handleSideMenuPush">
+            <side-menu :collapsed="collapsed" :routerList="routerList" @on-handleClick-menu="turnToPage">
                 <div class="logo-con">
                     <img v-show="!collapsed" :src="maxLogo" key="max-logo" />
                     <img v-show="collapsed" :src="minLogo" key="min-logo" />
@@ -44,7 +44,7 @@ import TagsNav from './components/tags-nav'
 
 // 引入方法
 import {
-    getNewTagList
+    getNewTagList, routeEqual
 } from '../libs/utils'
 
 import {
@@ -118,20 +118,28 @@ export default {
             'setHomeRoute',
             'setBreadCrumb',
             'addTag',
-            'setTagNavList'
+            'setTagNavList',
+            'closeTag'
         ]),
         // // 页面跳转
         handleSideMenuPush(key) {
-            this.$router.push({
-                name: key
-            })
+            this.turnToPage(key)
         },
         handleChangeCollapsed(state) {
             this.collapsed = state
         },
         // 标签栏事件
-        handleCloseTag () {
-
+        handleCloseTag (res, type, route) {
+            if(type  !== 'others') {
+                if (type==='all') {
+                    this.turnToPage(this.$config.homeName)
+                } else {
+                    if(routeEqual(this.$route, route)) {
+                        this.closeTag(route)
+                    }
+                }
+            }
+            this.setTagNavList(res)
         },
         // tagNav点击事件
         handleClick (item) {

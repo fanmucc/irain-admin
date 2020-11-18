@@ -11,14 +11,14 @@
             </Input>
         </FormItem>
         <FormItem>
-            <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
+            <Button type="primary" @click="handleSubmit('formInline')">注册</Button>
         </FormItem>
     </Form>
 </template>
 <script>
 import { Form, FormItem, Input, Icon, Button } from 'view-design'
 export default {
-    name: 'LoginForm',
+    name: 'RegisteredForm',
     components: {
         Form,
         FormItem,
@@ -47,7 +47,7 @@ export default {
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    this.$emit('on-success-valid', {
+                    this.$emit('on-success-signup', {
                         userName: this.formInline.user,
                         password: this.formInline.password
                     })

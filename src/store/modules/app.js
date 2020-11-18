@@ -7,8 +7,20 @@ import {
     getRouteTitleHandled,
     routeHasExist,
     setTagNavListInLocalstorage,
-    getTagNavListFromLocalstorage
+    getTagNavListFromLocalstorage,
+    routeEqual,
+    getNextRoute,
 } from '../../libs/utils'
+import router from '../../router'
+
+const closePage = (state, route) => {
+    const nextRoute = getNextRoute(state.tagNavList, route)
+    state.tagNavList = state.tagNavList.filter(item => {
+      return !routeEqual(item, route)
+    })
+    router.push(nextRoute)
+}
+
 
 const state = {
     breadCrumbList: [],  // 面包屑
@@ -53,6 +65,12 @@ const mutations = {
           console.log(state.tagNavList)
           setTagNavListInLocalstorage([...state.tagNavList])
         }
+      },
+      closeTag (state, route) {
+        let tag = state.tagNavList.filter(item => routeEqual(item, route))
+        route = tag[0] ? tag[0] : null
+        if (!route) return
+        closePage(state, route)
       },
 }
 

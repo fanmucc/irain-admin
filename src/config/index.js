@@ -8,7 +8,7 @@ export default {
      * @description 面包屑首页路由地址
      */
     homeName: 'Home',
-
+    routerWhitelist: ['Login', 'Registered'],
     /**
      * @description Header页面自定义高度
      */
@@ -19,7 +19,7 @@ export default {
      */
     cookieExpires: 1,
     baseUrl: {
-        dev: 'http://localhost:8080',
+        dev: 'http://129.211.48.125:8088/admin',
         pro: 'http://localhost:8080'
     }
 }

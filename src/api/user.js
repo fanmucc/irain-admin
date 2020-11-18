@@ -1,8 +1,8 @@
 import axios from '../libs/api.request'
-
+// 登陆接口
 export const login = ({ userName, password }) => {
     const data = {
-      userName,
+      account: userName,
       password
     }
     return axios.request({
@@ -12,13 +12,15 @@ export const login = ({ userName, password }) => {
     })
 }
 
-export const getUserInfo = (token) => {
-  const params = {
-    token
+// 注册接口
+export const postUserRegister = ({userName, password}) => {
+  const data = {
+    account: userName,
+    password
   }
   return axios.request({
-    url: 'get_info',
-    params,
-    method: 'get'
+    url: '/register',
+    data,
+    method: 'post'
   })
 }

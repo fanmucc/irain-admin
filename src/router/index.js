@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 import routers from './routers'
+import config from '../config'
+const { routerWhitelist } = config
 
 import { LoadingBar } from 'view-design'
 
@@ -9,55 +11,59 @@ import { getToken, setToken } from '../libs/utils'
 
 Vue.use(VueRouter)
 
+const LOGIN_PATH_NAME = 'Login'
+
+const routerWhitelistState = (routerName, routerWhitelist = routerWhitelist, next, token) => {
+  const status = routerWhitelist.find(item => {
+    return item === routerName
+  })
+  if (!token && !status) {
+    // 无token 且跳转的不是白名单里面的内容
+    LoadingBar.start()
+    next({
+      name: LOGIN_PATH_NAME
+    })
+  } else if (!token && status) {
+    // 没有token 但是跳转的是白名单
+    LoadingBar.start()
+    next()
+  } else if (token && status) {
+    // 有token且跳转的为白名单则跳转至首页
+    LoadingBar.start()
+    next({
+      name: 'Home'
+    })
+  } else {
+    if (store.state.user.routerList.length === 0) {
+      console.log(store.state.user.routerList)
+        // store.dispatch('getUserSubmit').then(user => {
+        //   // 获取到直接进行跳转
+        //   LoadingBar.start()
+        //   next()
+        // }).catch(error => {
+        //   setToken('')
+        //   LoadingBar.start()
+        //   next({
+        //     neme: LOGIN_PATH_NAME
+        //   })
+        // })
+      } else {
+        LoadingBar.start()
+        next()
+      }
+  }
+}
 
 const router = new VueRouter({
   mode: 'history',
   routes: routers
 })
 
-const LOGIN_PATH_NAME = 'Login'
+
 // 路由守卫
 router.beforeEach((to, from, next) => {
   const token = getToken()
-  if(!token && to.name !== LOGIN_PATH_NAME) {
-    // 没有登陆且跳转的页面不是登陆页面
-    // 将其跳转到登陆页
-    LoadingBar.start()
-    next({
-      name: LOGIN_PATH_NAME
-    })
-  } else if (!token && to.name === LOGIN_PATH_NAME) {
-    // 未登录但是跳转的页面为登陆也
-    // 直接跳转
-    LoadingBar.start()
-    next()
-  } else if (token && to.name === LOGIN_PATH_NAME) {
-    // 已经登陆但是跳转到登陆页面
-    // 阻止其行为 暂时跳转到首页
-    LoadingBar.start()
-    next({
-      name: 'Home'
-    })
-  } else {
-    // 已经登陆 跳转的页面也不是首页 
-    // 进行路由表判断，如果为空则需要重新加载路由
-    if (store.state.user.routerList.length === 0) {
-      store.dispatch('getUserSubmit').then(user => {
-        // 获取到直接进行跳转
-        LoadingBar.start()
-        next()
-      }).catch(error => {
-        setToken('')
-        LoadingBar.start()
-        next({
-          neme: LOGIN_PATH_NAME
-        })
-      })
-    } else {
-      LoadingBar.start()
-      next()
-    }
-  }
+  routerWhitelistState(to.name, routerWhitelist, next, token)
 })
 
 router.afterEach(router => {

@@ -3,15 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import config from './config'
+import md5 from 'js-md5'
 
 // import 'ant-design-vue/dist/antd.css'
+
 import 'view-design/dist/styles/iview.css'
 import './index.less'
 
-require('./mock/index')
-
 Vue.prototype.$config = config
-
+Vue.prototype.$md5 = md5
 Vue.config.productionTip = false
 
 new Vue({

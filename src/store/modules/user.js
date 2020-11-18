@@ -1,6 +1,6 @@
 import { setToken, getToken } from '../../libs/utils'
-import { login, getUserInfo } from '../../api/user'
-
+import { login } from '../../api/user'
+import Vue from 'vue'
 const state = {
     userName: '',
     userId: '',
@@ -36,41 +36,47 @@ const getters = {}
 
 const actions = {
     // 获取token信息
-    handleLogin({commit}, {userName, password}) {
+    handleLogin({commit}, {userName, beforePassword}) {
         userName = userName.trim();
+        beforePassword = Vue.prototype.$md5(beforePassword)
         return new Promise((resolve, reject) => {
             login({
                 userName,
-                password
+                password: beforePassword
             }).then(res => {
-                const data = res.data
+                const { data, code } = res.data
+                const routeList = []
+                commit('setUserName', data.info.account)
+                commit('setRouteList', data.nodes)
                 commit('setToken', data.token)
-                resolve()
+                commit('setHasGetInfo', true)
+                commit('setUserId', data.info.model.id)
+                resolve(code)
             }).catch(error => {
                 reject(error)
             })
         })
     },
 
-    getUserSubmit({state, commit}) {
-        return new Promise((resolve, reject) => {
-            try {
-                getUserInfo(state.token).then(res => {
-                    const data = res.data
-                    commit('setUserName', data.name)
-                    commit('setUserId', data.user_id)
-                    commit('setHasGetInfo', true)
-                    commit('setRouteList', data.router)
-                    commit('setAvatar', data.avatar)
-                    resolve(res)
-                }).catch(err => {
-                    reject(err)
-                })
-            } catch (error) {
-                reject(error)
-            }
-        })
-    }
+    // getUserSubmit({state, commit}) {
+    //     return new Promise((resolve, reject) => {
+    //         try {
+    //             getUserInfo(state.token).then(res => {
+    //                 const data = res.data
+    //                 commit('setUserName', data.name)
+    //                 commit('setUserId', data.user_id)
+    //                 commit('setHasGetInfo', true)
+    //                 commit('setRouteList', data.router)
+    //                 commit('setAvatar', data.avatar)
+    //                 resolve(res)
+    //             }).catch(err => {
+    //                 reject(err)
+    //             })
+    //         } catch (error) {
+    //             reject(error)
+    //         }
+    //     })
+    // }
 }
 
 export default {

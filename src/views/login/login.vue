@@ -3,13 +3,13 @@
         <div class="login-con">
             <h3 class="title">irain-admin</h3>
             <login-form @on-success-valid="handleSubmit"></login-form>
-            <p class="login-tip">输入任意用户名和密码即可</p>
+            <p class="login-tip">输入任意用户名和密码即可 <router-link to="/registered" style="text-decoration: underline;">irain-admin 注册</router-link></p>
         </div>
     </div>
 </template>
 <script>
 import LoginForm from './componetns/login-form'
-
+import {Message} from 'view-design'
 import { mapActions } from 'vuex'
 export default {
     name: 'Login',
@@ -23,11 +23,11 @@ export default {
         ]),
         handleSubmit(state) {
             const {userName, password} = state;
-            this.handleLogin({userName, password}).then((res) => {
-                this.getUserSubmit().then(res => {
-                    this.$router.push({
-                        name: 'Home'
-                    })
+            const beforePassword = password
+            this.handleLogin({userName, beforePassword}).then((res) => {
+                Message.success('登陆成功')
+                this.$router.push({
+                    name: 'Home'
                 })
             })
         }
@@ -54,9 +54,10 @@ export default {
             font-weight: 700;
         }
         .login-tip{
-            font-size: 10px;
-            text-align: center;
+            font-size: 14px;
             color: #c3c3c3;
+            display: flex;
+            justify-content: space-between;
         }
     }
 }

@@ -198,4 +198,89 @@ export const getNewTagList = (list, newRoute) => {
     else newList.push({ name, path, meta })
     return newList
 }
+
+/**
+ * @param {Array} list 标签列表
+ * @param {String} name 当前关闭的标签的name
+ */
+export const getNextRoute = (list, route) => {
+    let res = {}
+    if (list.length === 2) {
+      res = getHomeRoute(list)
+    } else {
+      const index = list.findIndex(item => routeEqual(item, route))
+      if (index === list.length - 1) res = list[list.length - 2]
+      else res = list[index + 1]
+    }
+    return res
+}
+
+/**
+ * @param {Array} routeList 路由标签
+ * @description 返回具有层级的路由标签
+ */
+
+ export const routeList = (nodes, list, pid = 0) => {
+     nodes.forEach(item => {
+         if(item.pid === pid) {
+             const nodeObj = {
+                 path: item.route,
+                 meta: {
+                    icon: '',
+                    title: item.node_name
+                 },
+                 name: firstUpperCase(item.route),
+                 pid: 0,
+                 pid_id: item.model.id,
+                 children: []
+             }
+             list.push(nodeObj)
+         }
+     })
+     getChildrenList(list, nodes)
+ }
+
+ /**
+  * 
+  * @param {*} string 
+  */
+
+  const getChildrenList = (list, nodes) => {
+    list.forEach(item => {
+        nodes.forEach(nodeItem => {
+            if (nodeItem.pid === item.pid_id) {
+                const nodeObj = {
+                    path: item.route,
+                    meta: {
+                        icon: '',
+                        title: item.node_name
+                    },
+                    name: firstUpperCase(nodeItem.route),
+                    pid: 0,
+                    pid_id: nodeItem.model.id,
+                    children: []
+                }
+                item.children.push(nodeObj)
+                getChildrenList(list.children, nodes)
+            } else {
+                item.children = null
+            }
+        })
+    })
+  }
+
+
+ /**
+  * @param {String} 将路由标签转换为首字符大写的字符串
+  * @description 返回字符串
+  */
+
+  const firstUpperCase = (str) => {
+      let routeNameArr = str.split('/')
+      let routeName = routeNameArr[routeNameArr.length - 1]
+      function upperCase ([first, ...rest]) {
+        return `${first.toUpperCase()}${rest.join('')}`
+      }
+      return upperCase(routeName)
+  }
   
