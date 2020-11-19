@@ -68,7 +68,7 @@ const actions = {
         return new Promise((reslove, reject) => {
             irainLogout(`Bearer+${state.token}`).then(res => {
                 commit('setToken', ''); 
-                commit('setRouteList', '')
+                commit('setRouteList', [])
                 reslove()
             }).catch(err => {
                 reject(err)
