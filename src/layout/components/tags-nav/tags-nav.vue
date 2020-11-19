@@ -88,9 +88,36 @@ export default {
         }
     },
     mounted () {
-        console.log(this.$config)
+        setTimeout(() => {
+            this.getTagElementByRoute(this.$route)
+        }, 200)
     },
     methods: {
+        handlescroll (e) {
+             var type = e.type
+            let delta = 0
+            if (type === 'DOMMouseScroll' || type === 'mousewheel') {
+                delta = (e.wheelDelta) ? e.wheelDelta : -(e.detail || 0) * 40
+            }
+            this.handleScroll(delta)
+        },
+        handleScroll (offset) {
+            const outerWidth = this.$refs.scrollOuter.offsetWidth
+            const bodyWidth = this.$refs.scrollBody.offsetWidth
+            if (offset > 0) {
+                this.tagBodyLeft = Math.min(0, this.tagBodyLeft + offset)
+            } else {
+                if (outerWidth < bodyWidth) {
+                if (this.tagBodyLeft < -(bodyWidth - outerWidth)) {
+                    this.tagBodyLeft = this.tagBodyLeft
+                } else {
+                    this.tagBodyLeft = Math.max(this.tagBodyLeft + offset, outerWidth - bodyWidth)
+                }
+                } else {
+                this.tagBodyLeft = 0
+                }
+            }
+        },
         // 关闭标签
         handleTagsOption (type) {
             if (type.includes('all')) {
@@ -106,20 +133,32 @@ export default {
                 }, 100)
             }
         },
-        handlescroll () {
-
+        handleClose (current) {
+            if (current.meta && current.meta.beforeCloseName && current.meta.beforeCloseName in beforeClose) {
+            new Promise(beforeClose[current.meta.beforeCloseName]).then(close => {
+            if (close) {
+                this.close(current)
+            }
+            })
+        } else {
+            this.close(current)
+        }
         },
-        handleScroll () {
-
-        },
-        handleClose () {
-
+        close (route) {
+            let res = this.list.filter(item => !routeEqual(route, item))
+            this.$emit('on-close', res, undefined, route)
         },
         handleClick (item) {
             this.$emit('input', item)
         },
-        contextMenu () {
-            
+        contextMenu (item, e) {
+            if (item.name === this.$config.homeName) {
+                return
+            }
+            this.visible = true
+            const offsetLeft = this.$el.getBoundingClientRect().left
+            this.contextMenuLeft = e.clientX - offsetLeft + 10
+            this.contextMenuTop = e.clientY - 64
         },
         isCurrentTag (item) {
             return routeEqual(this.currentRouteObj, item)
@@ -151,6 +190,21 @@ export default {
                 this.tagBodyLeft = -(tag.offsetLeft - (outerWidth - this.outerPadding - tag.offsetWidth))
             }
         },
+        closeMenu () {
+            this.visible = false
+        }
+    },
+    watch: {
+        '$route' (to) {
+            this.getTagElementByRoute(to)
+        },
+        visible (value) {
+            if (value) {
+                document.body.addEventListener('click', this.closeMenu)
+            } else {
+                document.body.removeEventListener('click', this.closeMenu)
+            }
+        }
     }
 }
 </script>

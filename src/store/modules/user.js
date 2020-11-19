@@ -1,5 +1,5 @@
-import { setToken, getToken, routeList, transTreeData } from '../../libs/utils'
-import { login, logout } from '../../api/user'
+import { setToken, getToken, routeList, transTreeData, setRouterListInLocalstorage, getRouterListFromLocalstorage } from '../../libs/utils'
+import { login, irainLogout } from '../../api/user'
 import Vue from 'vue'
 const state = {
     userName: '',
@@ -7,7 +7,7 @@ const state = {
     avatar: '',
     hasGetInfo: false,
     token: getToken(),
-    routerList: [],
+    routerList: getRouterListFromLocalstorage(),
 }
 
 const mutations = {
@@ -29,6 +29,7 @@ const mutations = {
     },
     setRouteList (state, routerList) {
         state.routerList = routerList
+        setRouterListInLocalstorage(routerList)
     }
 }
 
@@ -44,28 +45,33 @@ const actions = {
                 userName,
                 password: beforePassword
             }).then(res => {
-                const { data, code } = res.data
+                const { data, code, message } = res.data
+                if (code === 2002) {
+                    console.log('========')
+                    resolve({code, message})
+                    return
+                }
                 const routeListArr = transTreeData(routeList(data.nodes))
                 commit('setUserName', data.info.account)
                 // 处理路由
-                console.log(routeListArr)
                 commit('setRouteList', routeListArr)
                 commit('setToken', data.token)
                 commit('setHasGetInfo', true)
                 commit('setUserId', data.info.model.id)
-                resolve(code)
+                resolve({code, message})
             }).catch(error => {
-                reject(error)
+                reject({...error})
             })
         })
     },
-    handleLogOut({commit}, token) {
+    logout({state, commit}) {
         return new Promise((reslove, reject) => {
-            logout({
-                token
-            }).then(res => {
-                commit('setToken', '')
-                console.log(res)
+            irainLogout(`Bearer+${state.token}`).then(res => {
+                commit('setToken', ''); 
+                commit('setRouteList', '')
+                reslove()
+            }).catch(err => {
+                reject(err)
             })
         })
     }

@@ -51,10 +51,8 @@ const mutations = {
         setTagNavListInLocalstorage([...tagList])
       },
       addTag (state, { route, type = 'unshift' }) {
-          console.log(state.tagNavList, route)
         let router = getRouteTitleHandled(route)
         if (!routeHasExist(state.tagNavList, router)) {
-            console.log(1)
           if (type === 'push') { 
               state.tagNavList.push(router)
               console.log(state.tagNavList)
@@ -62,7 +60,6 @@ const mutations = {
                 if (router.name === homeName) state.tagNavList.unshift(router)
                 else state.tagNavList.splice(1, 0, router)
           }
-          console.log(state.tagNavList)
           setTagNavListInLocalstorage([...state.tagNavList])
         }
       },

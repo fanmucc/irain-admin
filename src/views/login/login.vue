@@ -24,11 +24,15 @@ export default {
         handleSubmit(state) {
             const {userName, password} = state;
             const beforePassword = password
-            this.handleLogin({userName, beforePassword}).then((res) => {
-                Message.success('登陆成功')
-                // this.$router.push({
-                //     name: 'Home'
-                // })
+            this.handleLogin({userName, beforePassword}).then((res, err) => {
+                if (!res.code == 2002) {
+                     Message.error(res.message)
+                } else {
+                    Message.success('登陆成功, 即将跳转')
+                    this.$router.push({
+                        name: 'Home'
+                    })
+                }
             })
         }
     }

@@ -35,18 +35,13 @@ const routerWhitelistState = (routerName, routerWhitelist = routerWhitelist, nex
     })
   } else {
     if (store.state.user.routerList.length === 0) {
+      // 当判断其路由表为空的时候，则进行token的清空
+      setToken('')
+      LoadingBar.start()
+      next({
+        name: LOGIN_PATH_NAME
+      })
       console.log(store.state.user.routerList)
-        // store.dispatch('getUserSubmit').then(user => {
-        //   // 获取到直接进行跳转
-        //   LoadingBar.start()
-        //   next()
-        // }).catch(error => {
-        //   setToken('')
-        //   LoadingBar.start()
-        //   next({
-        //     neme: LOGIN_PATH_NAME
-        //   })
-        // })
       } else {
         LoadingBar.start()
         next()

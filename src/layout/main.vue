@@ -10,7 +10,9 @@
         </Sider>
         <Layout>
             <Header class="header-con">
-                <HeaderBar :collapsed="collapsed" @on-coll-change="handleChangeCollapsed"></HeaderBar>
+                <HeaderBar :collapsed="collapsed" @on-coll-change="handleChangeCollapsed">
+                    <User :userAvatar="userAvatar"></User>
+                </HeaderBar>
             </Header>
             <Content class="main-content-con">
                  <Layout class="main-layout-con">
@@ -41,6 +43,7 @@ import store from '../store'
 import HeaderBar from './components/header-bar';
 import SideMenu from './components/side-menu'
 import TagsNav from './components/tags-nav'
+import User from './components/user'
 
 // 引入方法
 import {
@@ -65,7 +68,8 @@ export default {
         Sider,
         Header,
         HeaderBar,
-        TagsNav
+        TagsNav,
+        User
     },
     data() {
         return {
@@ -92,6 +96,9 @@ export default {
                 'menu-item',
                 this.collapsed ? 'collapsed-menu' : ''
             ]
+        },
+        userAvatar () {
+            return this.$store.state.user.avatar
         }
     },
     mounted () {
@@ -158,11 +165,12 @@ export default {
                 window.open(name.split('_')[1])
                 return
             }
-            this.$router.push({
-                name,
-                params,
-                query
-            })
+            console.log(name)
+            // this.$router.push({
+            //     name,
+            //     params,
+            //     query
+            // })
         },
     },
     watch: {

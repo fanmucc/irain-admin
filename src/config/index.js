@@ -20,6 +20,6 @@ export default {
     cookieExpires: 1,
     baseUrl: {
         dev: 'http://129.211.48.125:8088/admin',
-        pro: 'http://localhost:8080'
+        pro: 'http://129.211.48.125:8088/admin'
     }
 }

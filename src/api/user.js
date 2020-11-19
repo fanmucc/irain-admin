@@ -26,7 +26,7 @@ export const postUserRegister = ({userName, password}) => {
 }
 
 // 登出
-export const logout = (token) => {
+export const irainLogout = (token) => {
   const data = {
     Authorization: token
   }

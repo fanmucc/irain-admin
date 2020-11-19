@@ -184,6 +184,21 @@ export const setTagNavListInLocalstorage = list => {
     const list = localStorage.tagNaveList
     return list ? JSON.parse(list) : []
   }
+
+
+  /**
+ * @description 本地存储和获取路由数据
+ */
+export const setRouterListInLocalstorage = list => {
+    localStorage.routerList = JSON.stringify(list)
+  }
+  /**
+   * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
+   */
+  export const getRouterListFromLocalstorage = () => {
+    const list = localStorage.routerList
+    return list ? JSON.parse(list) : []
+  }
   
 
 /**

@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { getToken } from './utils'
 class HttpRequest {
     constructor(baseUrl = baseUrl) {
         this.baseUrl = baseUrl;
@@ -11,6 +11,7 @@ class HttpRequest {
             baseURL: this.baseUrl,
             headers: {
                 // header头部信息
+                Authorization: getToken() ? `Bearer+${getToken()}` : ''
             }
         }
         return config
@@ -44,7 +45,8 @@ class HttpRequest {
         return { data, status }
       }, error => {
         this.destroy(url)
-        // let errorInfo = error.response
+        let errorInfo = error.response
+        console.log(errorInfo)
         // if (!errorInfo) {
         //   const { request: { statusText, status }, config } = JSON.parse(JSON.stringify(error))
         //   errorInfo = {

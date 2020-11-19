@@ -4,7 +4,9 @@
             <sider-trigger :collapsed="collapsed" icon="md-menu" @on-change="handleCollapsedChange"></sider-trigger>
             <custom-bread-crumb :list="breadCrumbList"></custom-bread-crumb>
         </div>
-        <div class="irain-header-ri">2</div>
+        <div class="irain-header-ri">
+            <slot></slot>
+        </div>
     </div>
 </template>
 <script>
