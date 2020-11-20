@@ -46,10 +46,6 @@ const actions = {
                 password: beforePassword
             }).then(res => {
                 const { data, code, message } = res.data
-                if (code != 2000) {
-                    resolve({code, message})
-                    return
-                }
                 const routeListArr = transTreeData(routeList(data.nodes))
                 commit('setUserName', data.info.account)
                 // 处理路由

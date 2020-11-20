@@ -3,6 +3,7 @@ import config from '@/config'
 export const TOKEN_KEY = 'token'
 const { title, cookieExpires } = config
 import { objEqual } from './tools'
+import {routerIconSwitch} from './routerIcon'
 
 /**
  * 设置和读取token
@@ -240,7 +241,7 @@ export const getNextRoute = (list, route) => {
              const nodeObj = {
                  path: item.route,
                  meta: {
-                    icon: '',
+                    icon: routerIconSwitch(firstUpperCase(item.route)),
                     title: item.node_name
                  },
                  name: firstUpperCase(item.route),
@@ -287,10 +288,19 @@ export const getNextRoute = (list, route) => {
 
   const firstUpperCase = (str) => {
       let routeNameArr = str.split('/')
-      let routeName = routeNameArr[routeNameArr.length - 1]
-      function upperCase ([first, ...rest]) {
-        return `${first.toUpperCase()}${rest.join('')}`
+      let routeNameFilter = routeNameArr.filter(item => item != '');
+      if (routeNameFilter.length > 1) {
+          const name = []
+            routeNameFilter.forEach(item => {
+                name.push(upperCase(item))
+          })
+          return name.join('')
+      } else {
+        return upperCase(routeNameFilter[0])    
       }
-      return upperCase(routeName)
+  }
+
+  function upperCase ([first, ...rest]) {
+    return `${first.toUpperCase()}${rest.join('')}`
   }
   
