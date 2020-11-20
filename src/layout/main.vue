@@ -12,6 +12,7 @@
             <Header class="header-con">
                 <HeaderBar :collapsed="collapsed" @on-coll-change="handleChangeCollapsed">
                     <User :userAvatar="userAvatar"></User>
+                    <Button type="text" style="color: #2d8cf0" to="/add-article">添加文章</Button>
                 </HeaderBar>
             </Header>
             <Content class="main-content-con">
@@ -53,7 +54,8 @@ import {
 import {
     Layout,
     Sider,
-    Header
+    Header,
+    Button
 } from 'view-design'
 
 // 引入store
@@ -69,7 +71,8 @@ export default {
         Header,
         HeaderBar,
         TagsNav,
-        User
+        User,
+        Button
     },
     data() {
         return {

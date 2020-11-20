@@ -21,6 +21,14 @@ const routers = [
       component: () => import(/* webpackChunkName: "registered" */ '../views/registered/registered.vue')
     },
     {
+      path: '/add-article',
+      name: 'AddArticle',
+      meta: {
+        title: '添加文章'
+      },
+      component: () => import(/* webpackChunkName: "addarticle" */ '../views/AddArticle/add-article.vue')
+    },
+    {
       path: '/',
       name: 'Main',
       redirect: '/home',

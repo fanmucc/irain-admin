@@ -1,14 +1,17 @@
 <template>
-  <div class="home">
+  <div>
+    <div>   
+        123
+    </div>
     <VueMeditor></VueMeditor>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import VueMeditor from '../components/VueMeditor'
+import VueMeditor from '../../components/VueMeditor'
 export default {
-  name: 'Home',
+  name: 'AddArticle',
   components: {
     VueMeditor
   }
