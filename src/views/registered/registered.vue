@@ -35,7 +35,11 @@ export default {
                     // 创建成功后直接调用登陆接口
                     const time = setTimeout(() => {
                         this.handleLogin({userName, beforePassword}).then((res) => {
-                            console.log(res)
+                            this.$router.push({
+                                name: 'Home'
+                            })
+                        }).catch(error => {
+                            Message.error(error.message)
                         })
                     }, 2000)
                     

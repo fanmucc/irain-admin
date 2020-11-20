@@ -24,7 +24,7 @@ export default {
         handleSubmit(state) {
             const {userName, password} = state;
             const beforePassword = password
-            this.handleLogin({userName, beforePassword}).then((res, err) => {
+            this.handleLogin({userName, beforePassword}).then((res) => {
                 if (!res.code == 2002) {
                      Message.error(res.message)
                 } else {
@@ -33,6 +33,8 @@ export default {
                         name: 'Home'
                     })
                 }
+            }).catch(error => {
+                Message.error(error.message)
             })
         }
     }

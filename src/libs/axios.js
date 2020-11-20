@@ -55,7 +55,7 @@ class HttpRequest {
         //     request: { responseURL: config.url }
         //   }
         // }
-        return Promise.reject(error)
+        return Promise.reject(errorInfo.data)
       })
     }
 

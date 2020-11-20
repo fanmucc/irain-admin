@@ -37,7 +37,6 @@ const mutations = {
     },
     setTagNavList (state, list) {
         let tagList = []
-        console.log(list)
         if (list) {
           tagList = [...list]
         } else tagList = getTagNavListFromLocalstorage() || []

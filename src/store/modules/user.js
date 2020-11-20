@@ -46,8 +46,7 @@ const actions = {
                 password: beforePassword
             }).then(res => {
                 const { data, code, message } = res.data
-                if (code === 2002) {
-                    console.log('========')
+                if (code != 2000) {
                     resolve({code, message})
                     return
                 }
@@ -60,7 +59,7 @@ const actions = {
                 commit('setUserId', data.info.model.id)
                 resolve({code, message})
             }).catch(error => {
-                reject({...error})
+                reject(error)
             })
         })
     },
@@ -75,25 +74,6 @@ const actions = {
             })
         })
     }
-    // getUserSubmit({state, commit}) {
-    //     return new Promise((resolve, reject) => {
-    //         try {
-    //             getUserInfo(state.token).then(res => {
-    //                 const data = res.data
-    //                 commit('setUserName', data.name)
-    //                 commit('setUserId', data.user_id)
-    //                 commit('setHasGetInfo', true)
-    //                 commit('setRouteList', data.router)
-    //                 commit('setAvatar', data.avatar)
-    //                 resolve(res)
-    //             }).catch(err => {
-    //                 reject(err)
-    //             })
-    //         } catch (error) {
-    //             reject(error)
-    //         }
-    //     })
-    // }
 }
 
 export default {

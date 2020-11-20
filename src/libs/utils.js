@@ -154,7 +154,6 @@ export const routeHasExist = (tagNavList, routeItem) => {
     doCustomTimes(len, (index) => {
       if (routeEqual(tagNavList[index], routeItem)) res = true
     })
-    console.log(res)
     return res
   }
 
