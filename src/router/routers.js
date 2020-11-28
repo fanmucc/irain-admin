@@ -52,24 +52,40 @@ const routers = [
       
     },
     {
-      path: '/web',
-      name: 'Web',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: '/side',
+      name: 'Side',
       meta: {
         hideInMenu: true
       },
       component: Main,
       children: [
         {
-          path: 'web-setting',
-          name: 'WebSetting',
+          path: 'siteedit',
+          name: 'SiteEdit',
           meta: {
             title: '网站设置',
             icon: 'ios-at'
           },
-          component: () => import('../views/Ceshi1.vue')
+          component: () => import('../views/site/site.vue')
+        }
+      ]
+    },
+    {
+      path: '/into',
+      name: 'Into',
+      meta: {
+        hideInMenu: true
+      },
+      component: Main,
+      children: [
+        {
+          path: 'intoedit',
+          name: 'IntoEdit',
+          meta: {
+            title: '个人信息',
+            icon: 'ios-at'
+          },
+          component: () => import('../views/into/into.vue')
         }
       ]
     },

@@ -18,4 +18,7 @@ module.exports = {
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'))
   },
+  devServer: {
+    proxy: 'http://129.211.48.125:8088/admin'
+  }
 }

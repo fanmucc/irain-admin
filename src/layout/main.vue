@@ -169,11 +169,11 @@ export default {
                 return
             }
             console.log(name)
-            // this.$router.push({
-            //     name,
-            //     params,
-            //     query
-            // })
+            this.$router.push({
+                name,
+                params,
+                query
+            })
         },
     },
     watch: {
