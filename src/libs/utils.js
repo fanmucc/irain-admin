@@ -69,7 +69,7 @@ export const setSessionStorage = (state, key, value) => {
  * @description 用于找到路由列表中name为home的对象
  */
 
- export const getHomeRoute = (routers, homeName = 'home') => {
+ export const getHomeRoute = (routers, homeName = 'Home') => {
      let i = -1
      let len = routers.length
      let homeRoute = {}

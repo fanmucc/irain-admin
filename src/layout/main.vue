@@ -168,7 +168,6 @@ export default {
                 window.open(name.split('_')[1])
                 return
             }
-            console.log(name)
             this.$router.push({
                 name,
                 params,

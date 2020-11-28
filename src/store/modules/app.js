@@ -54,7 +54,6 @@ const mutations = {
         if (!routeHasExist(state.tagNavList, router)) {
           if (type === 'push') { 
               state.tagNavList.push(router)
-              console.log(state.tagNavList)
            } else {
                 if (router.name === homeName) state.tagNavList.unshift(router)
                 else state.tagNavList.splice(1, 0, router)
