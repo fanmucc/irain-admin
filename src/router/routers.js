@@ -26,7 +26,7 @@ const routers = [
       meta: {
         title: '添加文章'
       },
-      component: () => import(/* webpackChunkName: "addarticle" */ '../views/AddArticle/add-article.vue')
+      component: () => import(/* webpackChunkName: "addarticle" */ '../views/add-article/add-article.vue')
     },
     {
       path: '/',
@@ -117,13 +117,13 @@ const routers = [
       component: Main,
       children: [
         {
-          path: 'add-atricle',
-          name: 'AddAtricle',
+          path: 'add',
+          name: 'ArticleAdd',
           meta: {
             title: '添加列表',
             icon: 'file-markdown'
           },
-          component: () => import('../views/Ceshi3.vue')
+          component: () => import('../views/add-article/add-article.vue')
         },
         {
           path: 'remote-atricle',
@@ -136,34 +136,6 @@ const routers = [
         }
       ]
     },
-    {
-      path: '/abc',
-      name: 'Abc',
-      meta: {
-        hideInMenu: true
-      },
-      component: Main,
-      children: [
-        {
-          path: 'add-abc',
-          name: 'Addabc',
-          meta: {
-            title: '添加abc',
-            icon: 'file-markdown'
-          },
-          component: () => import('../views/Ceshi5.vue')
-        },
-        {
-          path: 'remote-abc',
-          name: 'Remoteabc',
-          meta: {
-            title: '删除列表',
-            icon: 'file-markdown'
-          },
-          component: () => import('../views/Ceshi6.vue')
-        }
-      ]
-    }
 ]
 
 

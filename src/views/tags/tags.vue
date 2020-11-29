@@ -14,7 +14,7 @@
                 </FormItem>
                 <FormItem label="二级标签:">
                     <RadioGroup v-model="defaultId" type="button">
-                        <Radio v-for="item in radioGroupData" :key="item.id" :label="item.id" ></Radio>
+                        <Radio v-for="item in radioGroupData" :key="item.id" :label="item.name" ></Radio>
                     </RadioGroup>
                     <div class="twoTags">
                         <div class="twoTags-header">
@@ -54,7 +54,7 @@ export default {
             return this.oneLabelTags.filter(item => item.id != 1 && item.name.trim() != '')
         },
         twoTagsData () {
-            return this.radioGroupData.filter(item => item.id == this.defaultId)
+            return this.radioGroupData.filter(item => item.name == this.defaultId)
         }
     },
     data () {
@@ -100,7 +100,7 @@ export default {
                     twoTags: []
                 },
             ],
-            defaultId: 2,
+            defaultId: '前端',
             twoTagsValue: ''
         }
     },
