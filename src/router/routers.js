@@ -60,7 +60,7 @@ const routers = [
       component: Main,
       children: [
         {
-          path: 'siteedit',
+          path: 'site-edit',
           name: 'SiteEdit',
           meta: {
             title: '网站设置',
@@ -79,7 +79,7 @@ const routers = [
       component: Main,
       children: [
         {
-          path: 'intoedit',
+          path: 'into-edit',
           name: 'IntoEdit',
           meta: {
             title: '个人信息',
@@ -98,13 +98,13 @@ const routers = [
       component: Main,
       children: [
         {
-          path: 'labels',
-          name: 'Labels',
+          path: 'labels-edit',
+          name: 'LabelEdit',
           meta: {
             title: '标签设置',
             icon: 'ios-pricetags'
           },
-          component: () => import('../views/Ceshi2.vue')
+          component: () => import('../views/tags/tags.vue')
         }
       ]
     },
