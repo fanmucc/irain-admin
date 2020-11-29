@@ -21,10 +21,14 @@
                             <Input v-model="twoTagsValue" style="margin-right: 5px;"/>
                         </div>
                         <div class="twoTags-content">
-                            <Tag v-for="(item,index) in twoTagsData[0].twoTags" :key="index" :name="item.name" closable @on-close="handleClose2">{{ item.name}}</Tag>
+                            <Tag color="primary" size="medium" v-for="(item,index) in twoTagsData[0].twoTags" :key="index" :name="item.name" closable @on-close="handleClose2">{{ item.name}}</Tag>
                             <Button icon="ios-add" type="dashed" size="small" @click="handleAdd">添加标签</Button>
                         </div>
                     </div>
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" @click="handleSubmit('site-form')">提交</Button>
+                    <Button @click="handleReset('site-form')" style="margin-left: 8px">查看效果 </Button>
                 </FormItem>
             </Form>
         </div>
@@ -130,6 +134,12 @@ export default {
         },
         handleClose2 () {
 
+        },
+        handleSubmit (e) {
+
+        },
+        handleReset (e) {
+
         }
     }
 }
@@ -177,10 +187,11 @@ export default {
             margin-top: 10px;
             border: 1px solid #DCDFE6;
             width: 55%;
-            min-height: 50px;
+            min-height: 100px;
             border-radius: 5px;
             padding: 5px;
             .twoTags-header {
+                margin-bottom: 5px;
                 display: flex;
             }
         }
