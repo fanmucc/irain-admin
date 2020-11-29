@@ -13,11 +13,17 @@
                     <div class="prompt"> <i style="color: red; margin-right: .5rem">*</i> 一级标签最多为5个, 内容为空则显示编辑, 首页不可修改！</div>
                 </FormItem>
                 <FormItem label="二级标签:">
-                    <RadioGroup v-model="radioGroupData[0].id" type="button">
-                        <Radio v-for="item in radioGroupData" :key="item.id" :label="item.name" v-model="item.id" ></Radio>
+                    <RadioGroup v-model="defaultId" type="button">
+                        <Radio v-for="item in radioGroupData" :key="item.id" :label="item.id" ></Radio>
                     </RadioGroup>
                     <div class="twoTags">
-
+                        <div class="twoTags-header">
+                            <Input v-model="twoTagsValue" style="margin-right: 5px;"/>
+                        </div>
+                        <div class="twoTags-content">
+                            <Tag v-for="(item,index) in twoTagsData[0].twoTags" :key="index" :name="item.name" closable @on-close="handleClose2">{{ item.name}}</Tag>
+                            <Button icon="ios-add" type="dashed" size="small" @click="handleAdd">添加标签</Button>
+                        </div>
                     </div>
                 </FormItem>
             </Form>
@@ -25,7 +31,7 @@
     </div>
 </template>
 <script>
-import { Form, FormItem, Input, Icon, RadioGroup, Radio, Modal, Notice, Message, Button } from 'view-design'
+import { Form, FormItem, Input, Icon, RadioGroup, Radio, Tag, Notice, Message, Button } from 'view-design'
 export default {
     name: 'Tags',
     components: {
@@ -34,11 +40,17 @@ export default {
         Input,
         Icon,
         RadioGroup,
-        Radio
+        Radio,
+        Button,
+        Tag,
+        Message
     },
     computed: {
         radioGroupData () {
             return this.oneLabelTags.filter(item => item.id != 1 && item.name.trim() != '')
+        },
+        twoTagsData () {
+            return this.radioGroupData.filter(item => item.id == this.defaultId)
         }
     },
     data () {
@@ -54,7 +66,16 @@ export default {
                     id: 2,
                     name: '前端',
                     editStatus: false,
-                    twoTags: []
+                    twoTags: [
+                        {
+                            id: 1,
+                            name: 'Vue'
+                        },
+                        {
+                            id: 2,
+                            name: 'React'
+                        }
+                    ]
                 },
                 {
                     id: 3,
@@ -75,6 +96,8 @@ export default {
                     twoTags: []
                 },
             ],
+            defaultId: 2,
+            twoTagsValue: ''
         }
     },
     methods: {
@@ -99,6 +122,14 @@ export default {
             this.$nextTick(() => {
                 this.$refs[refsName][0].focus()
             })
+        },
+        handleAdd () {
+            if (this.twoTagsValue.trim() == '') {
+                Message.error('请输入标签内容')
+            }
+        },
+        handleClose2 () {
+
         }
     }
 }
@@ -141,6 +172,17 @@ export default {
                 cursor: not-allowed;
             }
 
+        }
+        .twoTags {
+            margin-top: 10px;
+            border: 1px solid #DCDFE6;
+            width: 55%;
+            min-height: 50px;
+            border-radius: 5px;
+            padding: 5px;
+            .twoTags-header {
+                display: flex;
+            }
         }
     }
 }
