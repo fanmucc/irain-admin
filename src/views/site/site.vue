@@ -3,7 +3,7 @@
         <div class="site-form">
             <Form ref="site-form" :model="formValidate" :rules="ruleValidate" :label-width="100">
                 <FormItem label="博客名称:" prop="siteName">
-                    <Input v-model="formValidate.siteName" style="width:500px"/>
+                    <Input v-model="formValidate.siteName"/>
                 </FormItem>
                  <FormItem label="博客描述:" prop="description">
                     <Input v-model="formValidate.description"/>
@@ -158,7 +158,7 @@ export default {
         display: flex;
         justify-content: center;
         .site-form {
-            width: 80%;
+            width: 50%;
         }
     }
     .demo-upload-list{

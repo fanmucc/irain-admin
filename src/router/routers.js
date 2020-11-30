@@ -85,7 +85,7 @@ const routers = [
             title: '个人信息',
             icon: 'ios-at'
           },
-          component: () => import('../views/into/into.vue')
+          component: () => import('../views/user/into/into.vue')
         }
       ]
     },
@@ -134,6 +134,25 @@ const routers = [
           },
           component: () => import('../views/Ceshi4.vue')
         }
+      ]
+    },
+    {
+      path: '/user',
+      name: 'User',
+      meta: {
+        title: '列表页',
+      },
+      component: Main,
+      children: [
+        {
+          path: 'password-edit',
+          name: 'PasswordEdit',
+          meta: {
+            title: '密码修改',
+            icon: 'file-markdown'
+          },
+          component: () => import('../views/user/password/password.vue')
+        },
       ]
     },
 ]

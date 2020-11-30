@@ -8,6 +8,9 @@
         <DropdownItem name="message">
           个人资料
         </DropdownItem>
+        <DropdownItem name="password">
+          密码修改
+        </DropdownItem>
         <DropdownItem name="logout">退出登录</DropdownItem>
       </DropdownMenu>
     </Dropdown>
@@ -40,8 +43,9 @@ export default {
         switch (name) {
           case 'logout': this.logout().then(()=>{this.$router.push({name: 'Login'})}).catch(error => {console.log(error)})
             break
-          case 'message': this.message()
+          case 'message': this.$router.push({name: 'IntoEdit'})
             break
+          case 'password': this.$router.push({name: 'PasswordEdit'})
       }
       }
     }
