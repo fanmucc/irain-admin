@@ -45,7 +45,4 @@ export default {
 }
 </script>
 <style lang="less">
-    .markdown-pro {
-        height: 100%;
-    }
 </style>

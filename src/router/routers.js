@@ -21,14 +21,6 @@ const routers = [
       component: () => import(/* webpackChunkName: "registered" */ '../views/registered/registered.vue')
     },
     {
-      path: '/add-article',
-      name: 'AddArticle',
-      meta: {
-        title: '添加文章'
-      },
-      component: () => import(/* webpackChunkName: "addarticle" */ '../views/add-article/add-article.vue')
-    },
-    {
       path: '/',
       name: 'Main',
       redirect: '/home',
@@ -109,6 +101,15 @@ const routers = [
       ]
     },
     {
+      path: '/add-article',
+      name: 'ArticleAdd',
+      meta: {
+        title: '添加列表',
+        icon: 'file-markdown'
+      },
+      component: () => import('../views/add-article/add-article.vue')
+    },
+    {
       path: '/article',
       name: 'Article',
       meta: {
@@ -116,15 +117,6 @@ const routers = [
       },
       component: Main,
       children: [
-        {
-          path: 'add',
-          name: 'ArticleAdd',
-          meta: {
-            title: '添加列表',
-            icon: 'file-markdown'
-          },
-          component: () => import('../views/add-article/add-article.vue')
-        },
         {
           path: 'remote-atricle',
           name: 'RemoteAtricle',
