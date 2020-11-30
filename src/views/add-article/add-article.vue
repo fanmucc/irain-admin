@@ -40,8 +40,7 @@
       </Upload>
       </div>
       <input type="text" class="article-title" placeholder="请输入标题">
-      <!-- <MarkdownPro class="markdown-pro" :toolbars="toolbars" :bordered="false" style="height: 900px"></MarkdownPro> -->
-      <div style="height: 100px; border: 1px solid;"></div>
+      <MarkdownPro class="markdown-pro" :toolbars="toolbars" :bordered="false" style="height: 900px"></MarkdownPro>
     </div>
   </div>
 </template>
@@ -69,9 +68,10 @@ export default {
 .article {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    max-width: 100vw;
+    height: 100vh;
+    width: 100vw;
     background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
     .article-header {
       position: fixed;
       overflow: hidden;
