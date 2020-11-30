@@ -40,7 +40,7 @@
       </Upload>
       </div>
       <input type="text" class="article-title" placeholder="请输入标题">
-      <MarkdownPro class="markdown-pro" :toolbars="toolbars" :bordered="false" style="height: 900px"></MarkdownPro>
+      <VueMeditor class="markdown-pro" :toolbars="toolbars" :bordered="false" style="height: 900px"></VueMeditor>
     </div>
   </div>
 </template>
@@ -48,7 +48,6 @@
 <script>
 // @ is an alias to /src
 import VueMeditor from '../../components/VueMeditor'
-import { MarkdownPro } from 'vue-meditor'
 import { Button, Dropdown, DropdownMenu, DropdownItem, Icon, Upload } from 'view-design'
 export default {
   name: 'AddArticle',
@@ -60,7 +59,6 @@ export default {
     DropdownItem,
     Icon,
     Upload,
-    MarkdownPro
   }
 }
 </script>
