@@ -7,7 +7,7 @@
         </div>
         <div class="header-cen">
           <span class="irain-pageTitle">写文章</span>
-          <span class="irian-pageSubTitle">草稿以保存</span>
+          <span class="irian-pageSubTitle">草稿已保存</span>
         </div>
         <div class="header-ri">
             <Dropdown>
@@ -40,7 +40,7 @@
       </Upload>
       </div>
       <input type="text" class="article-title" placeholder="请输入标题">
-      <VueMeditor class="markdown-pro" :toolbars="toolbars" :bordered="false" style="height: 900px"></VueMeditor>
+      <VueMeditor class="markdown-pro" :toolbars="toolbars" :bordered="false" style="height: 600px"></VueMeditor>
     </div>
   </div>
 </template>
@@ -72,7 +72,6 @@ export default {
     overflow-x: hidden;
     .article-header {
       position: fixed;
-      overflow: hidden;
       z-index: 10;
       width: 100%;
       display: flex;

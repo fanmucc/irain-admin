@@ -1,12 +1,12 @@
-import { setToken, getToken, routeList, transTreeData, setRouterListInLocalstorage, getRouterListFromLocalstorage } from '../../libs/utils'
+import { setToken, getToken, getHasGetInfo, setHasGetInfo, routeList, transTreeData, setRouterListInLocalstorage, getRouterListFromLocalstorage } from '../../libs/utils'
 import { login, irainLogout } from '../../api/user'
 import Vue from 'vue'
 const state = {
     userName: '',
     userId: '',
     avatar: '',
-    hasGetInfo: false,
-    token: getToken(),
+    hasGetInfo: getHasGetInfo(),
+    // token: getToken(),
     routerList: getRouterListFromLocalstorage(),
 }
 
@@ -22,11 +22,12 @@ const mutations = {
     },
     setHasGetInfo (state, newHasGetInfo) {
         state.hasGetInfo = newHasGetInfo
+        setHasGetInfo(newHasGetInfo)
     },
-    setToken (state, token) {
-        state.token = token
-        setToken(token)
-    },
+    // setToken (state, token) {
+    //     state.token = token
+    //     setToken(token)
+    // },
     setRouteList (state, routerList) {
         state.routerList = routerList
         setRouterListInLocalstorage(routerList)
@@ -50,7 +51,7 @@ const actions = {
                 commit('setUserName', data.info.account)
                 // 处理路由
                 commit('setRouteList', routeListArr)
-                commit('setToken', data.token)
+                // commit('setToken', data.token)
                 commit('setHasGetInfo', true)
                 commit('setUserId', data.info.model.id)
                 resolve({code, message})
@@ -62,7 +63,7 @@ const actions = {
     logout({state, commit}) {
         return new Promise((reslove, reject) => {
             irainLogout(`Bearer+${state.token}`).then(res => {
-                commit('setToken', ''); 
+                // commit('setToken', ''); 
                 commit('setRouteList', [])
                 reslove()
             }).catch(err => {

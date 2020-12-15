@@ -5,6 +5,7 @@ const resolve = dir => {
 }
 
 module.exports = {
+  publicPath: '/',
   lintOnSave: false,
   css: {
     loaderOptions: {

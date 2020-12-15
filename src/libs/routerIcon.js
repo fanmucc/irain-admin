@@ -12,6 +12,9 @@ export const routerIconSwitch = (name) => {
         case 'Info':
             return 'ios-person'
             break
+        case 'Into':
+            return 'ios-person'
+            break
         case 'IntoEdit':
             return 'ios-folder-open'
             break

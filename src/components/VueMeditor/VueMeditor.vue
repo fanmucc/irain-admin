@@ -31,7 +31,7 @@ export default {
                 // checked: false,
                 // notChecked: false,
                 // preview: false,
-                split: false,
+                // split: false,
                 print: false,
                 theme: false,
                 fullscreen: false,

@@ -19,6 +19,32 @@ export const getToken = () => {
     else return false
 }
 
+/**
+ * 设置和读取Cookies
+ */
+
+export const setCookies = (key, value) => {
+    Cookies.set(key, value, { expires: cookieExpires || 1 })
+}
+
+export const getCookies = (key) => {
+    const value = Cookies.get(key)
+    if (value) return token
+    else return false
+}
+
+/**
+ * 
+ * @param {*} 设置和读取登陆状态
+ */
+export const getHasGetInfo = () => {
+    const hasGetInfo = window.localStorage.getItem('hasGetInfo') === null ? false : JSON.parse(window.localStorage.getItem('hasGetInfo'))
+    return hasGetInfo
+}
+
+export const setHasGetInfo = (status) => {
+    window.localStorage.hasGetInfo = JSON.stringify(status)
+}
 
 /**
  * @param {String} url
@@ -273,7 +299,7 @@ export const getNextRoute = (list, route) => {
   const findChild = (pid, routerArr) => {
       var _arr = []
       for (var i = 0; i < routerArr.length; i++) {
-          if (routerArr[i].pid === pid) {
+          if (routerArr[i].pid === pid && routerArr[i].type != 3) {
               var _obj = routerArr[i];
               _obj.children = findChild(_obj.pid_id, routerArr)
               _arr.push(_obj)

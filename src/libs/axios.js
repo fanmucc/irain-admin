@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from './utils'
+import { setCookies, getCookies } from './utils'
 class HttpRequest {
     constructor(baseUrl = baseUrl) {
         this.baseUrl = baseUrl;
@@ -11,7 +11,8 @@ class HttpRequest {
             baseURL: this.baseUrl,
             headers: {
                 // header头部信息
-                Authorization: getToken() ? `Bearer+${getToken()}` : ''
+                authorization: getCookies('authorization') ? `${getToken('authorization')}` : '',
+                refreshauth: getCookies('refreshauth') ? `${getToken('refreshauth')}` : ''
             }
         }
         return config
@@ -41,7 +42,11 @@ class HttpRequest {
       // 响应拦截
       instance.interceptors.response.use(res => {
         this.destroy(url)
-        const { data, status } = res
+        const { data, status, headers } = res
+        if (headers['authorization'] && headers['refreshauth']) {
+          setCookies('authorization', headers['authorization'])
+          setCookies('refreshauth', headers['refreshauth'])
+        }
         return { data, status }
       }, error => {
         this.destroy(url)

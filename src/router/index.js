@@ -7,36 +7,33 @@ const { routerWhitelist } = config
 
 import { LoadingBar } from 'view-design'
 
-import { getToken, setToken } from '../libs/utils'
+import { getHasGetInfo, setHasGetInfo } from '../libs/utils'
 
 Vue.use(VueRouter)
 
 const LOGIN_PATH_NAME = 'Login'
 
-const routerWhitelistState = (routerName, routerWhitelist = routerWhitelist, next, token) => {
+// 路由跳转验证方法，此为单独抽离出来的函数方法
+const routerWhitelistState = (routerName, routerWhitelist = routerWhitelist, next, hasGetInfo) => {
   const status = routerWhitelist.find(item => {
     return item === routerName
   })
-  if (!token && !status) {
-    // 无token 且跳转的不是白名单里面的内容
+  if (!hasGetInfo && !status) {
     LoadingBar.start()
     next({
       name: LOGIN_PATH_NAME
     })
-  } else if (!token && status) {
-    // 没有token 但是跳转的是白名单
+  } else if (!hasGetInfo && status) {
     LoadingBar.start()
     next()
-  } else if (token && status) {
-    // 有token且跳转的为白名单则跳转至首页
+  } else if (hasGetInfo && status) {
     LoadingBar.start()
     next({
       name: 'Home'
     })
   } else {
     if (store.state.user.routerList.length === 0) {
-      // 当判断其路由表为空的时候，则进行token的清空
-      setToken('')
+      setHasGetInfo(false)
       LoadingBar.start()
       next({
         name: LOGIN_PATH_NAME
@@ -57,8 +54,8 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  const token = getToken()
-  routerWhitelistState(to.name, routerWhitelist, next, token)
+  const hasGetInfo = getHasGetInfo()
+  routerWhitelistState(to.name, routerWhitelist, next, hasGetInfo)
 })
 
 router.afterEach(router => {
