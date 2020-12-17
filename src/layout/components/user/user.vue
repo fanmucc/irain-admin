@@ -18,7 +18,7 @@
 </template>
 <script>
 import { Dropdown, Badge, Avatar, Icon, DropdownMenu, DropdownItem} from 'view-design'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
     name: 'User',
     components: {
@@ -39,9 +39,15 @@ export default {
       ...mapActions([
         'logout'
       ]),
+      ...mapMutations([
+        'setHasGetInfo'
+      ]),
       handleClick (name) {
         switch (name) {
-          case 'logout': this.logout().then(()=>{this.$router.push({name: 'Login'})}).catch(error => {console.log(error)})
+          case 'logout': this.logout().then(()=>{
+              this.setHasGetInfo(false)
+              this.$router.push({name: 'Login'})
+            }).catch(error => {console.log(error)})
             break
           case 'message': this.$router.push({name: 'IntoEdit'})
             break

@@ -11,8 +11,8 @@ class HttpRequest {
             baseURL: this.baseUrl,
             headers: {
                 // header头部信息
-                authorization: getCookies('authorization') ? `${getToken('authorization')}` : '',
-                refreshauth: getCookies('refreshauth') ? `${getToken('refreshauth')}` : ''
+                authorization: getCookies('authorization') ? `${getCookies('authorization')}` : '',
+                refreshauth: getCookies('refreshauth') ? `${getCookies('refreshauth')}` : ''
             }
         }
         return config
@@ -59,6 +59,7 @@ class HttpRequest {
         //     request: { responseURL: config.url }
         //   }
         // }
+        console.log(errorInfo.data)
         return Promise.reject(errorInfo.data)
       })
     }

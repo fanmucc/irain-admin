@@ -12,7 +12,7 @@
             <Header class="header-con">
                 <HeaderBar :collapsed="collapsed" @on-coll-change="handleChangeCollapsed">
                     <User :userAvatar="userAvatar"></User>
-                    <Button type="text" style="color: #2d8cf0" to="/add-article">添加文章</Button>
+                    <Button type="text" style="color: #2d8cf0; display: flex; align-items: center;" to="/add-article">添加文章</Button>
                 </HeaderBar>
             </Header>
             <Content class="main-content-con">

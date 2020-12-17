@@ -44,8 +44,8 @@ const routers = [
       
     },
     {
-      path: '/side',
-      name: 'Side',
+      path: '/site',
+      name: '_Site',
       meta: {
         hideInMenu: true
       },
@@ -53,7 +53,7 @@ const routers = [
       children: [
         {
           path: 'site-edit',
-          name: 'SiteEdit',
+          name: 'Site',
           meta: {
             title: '网站设置',
             icon: 'ios-at'
@@ -63,16 +63,16 @@ const routers = [
       ]
     },
     {
-      path: '/into',
-      name: 'Into',
+      path: '/info',
+      name: '_Info',
       meta: {
         hideInMenu: true
       },
       component: Main,
       children: [
         {
-          path: 'into-edit',
-          name: 'IntoEdit',
+          path: 'info-edit',
+          name: 'Info',
           meta: {
             title: '个人信息',
             icon: 'ios-at'
@@ -83,7 +83,7 @@ const routers = [
     },
     {
       path: '/label',
-      name: 'Label',
+      name: '_Label',
       meta: {
         hideInMenu: true
       },
@@ -91,7 +91,7 @@ const routers = [
       children: [
         {
           path: 'labels-edit',
-          name: 'LabelEdit',
+          name: 'Label',
           meta: {
             title: '标签设置',
             icon: 'ios-pricetags'

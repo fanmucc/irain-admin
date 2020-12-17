@@ -29,7 +29,7 @@ export const setCookies = (key, value) => {
 
 export const getCookies = (key) => {
     const value = Cookies.get(key)
-    if (value) return token
+    if (value) return value
     else return false
 }
 
@@ -264,18 +264,20 @@ export const getNextRoute = (list, route) => {
  export const routeList = (nodes) => {
      let data = []
      nodes.forEach(item => {
-             const nodeObj = {
-                 path: item.route,
-                 meta: {
-                    icon: routerIconSwitch(firstUpperCase(item.route)),
-                    title: item.node_name
-                 },
-                 name: firstUpperCase(item.route),
-                 pid: item.pid,
-                 pid_id: item.model.id,
-                 children: []
-             }
-             data.push(nodeObj)
+            if (item.type != 3) {
+                const nodeObj = {
+                    path: item.route,
+                    meta: {
+                       icon: routerIconSwitch(firstUpperCase(item.route)),
+                       title: item.node_name
+                    },
+                    name: firstUpperCase(item.route),
+                    pid: item.pid,
+                    pid_id: item.model.id,
+                    children: []
+                }
+                data.push(nodeObj)
+            }
      })
      return data
  }
@@ -299,10 +301,12 @@ export const getNextRoute = (list, route) => {
   const findChild = (pid, routerArr) => {
       var _arr = []
       for (var i = 0; i < routerArr.length; i++) {
-          if (routerArr[i].pid === pid && routerArr[i].type != 3) {
-              var _obj = routerArr[i];
-              _obj.children = findChild(_obj.pid_id, routerArr)
-              _arr.push(_obj)
+          if (routerArr[i].type != 3) {
+            if (routerArr[i].pid === pid) {
+                var _obj = routerArr[i];
+                _obj.children = findChild(_obj.pid_id, routerArr)
+                _arr.push(_obj)
+            }
           }
       }
       return _arr

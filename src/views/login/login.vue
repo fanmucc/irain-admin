@@ -29,9 +29,9 @@ export default {
                      Message.error(res.message)
                 } else {
                     Message.success('登陆成功, 即将跳转')
-                    // this.$router.push({
-                    //     name: 'Home'
-                    // })
+                    this.$router.push({
+                        name: 'Home'
+                    })
                 }
             }).catch(error => {
                 console.log(error)
